@@ -1,44 +1,61 @@
 import "./style.css";
 import { useRef } from "react";
-export function Home() {
-    const home = useRef(null);
-    const about = useRef(null);
-    const skills = useRef(null);
-    const projects = useRef(null);
-    const contact = useRef(null);
+import lightbox from "lightbox-react";
 
-    const scrollToSection = (elementRef) => {
-        window.scrollTo({
-            top: elementRef.current.offsetTop,
-            behavior: 'smooth'
-        })
+const Home = () => {
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const navBar = useRef(null);
+
+  // Sticky navigation bar code
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 0) {
+      navBar.current.classList.add("sticky");
+    } else {
+      navBar.current.classList.remove("sticky");
     }
+  });
 
-    return (
+  // Lightbox code
 
-        <div class="App">
-            <div class="hero">
-                <ul>
-                    <li onClick={() => scrollToSection(home)} class="link">Home</li>
-                    <li onClick={() => scrollToSection(about)} class="link">About me</li>
-                    <li onClick={() => scrollToSection(skills)} class="link">Skills</li>
-                    <li onClick={() => scrollToSection(projects)} class="link">Projects</li>
-                    <li onClick={() => scrollToSection(contact)} class="link">Contact details</li>
-                </ul>
-            </div>
-            <div ref={home} class="home">
-                <h3 class="heading">Home</h3>
-                <table>
-                    <tr>
-                        <td><h3 class="i1">Hi</h3>
-                            <h3 class="i1">I am Kusumita</h3>
-                            <h3 class="i1">Welcome to my portfolio website</h3>
-                            <h3 class="i1">Currently engaged in MERN fullstack internship by <a href="https://www.ethnus.com" target="blank">ethnus</a> and Cloud practitioner internship by <a href="https://aws.amazon.com/" target="blank">AWS</a></h3></td>
-                        {/* <td><img src={myimg} alt="My img"></img></td>  */}
-                    </tr>
-                </table>
+  const openLightbox = (image) => {
+    setIsLightboxOpen(true);
+    lightbox.open(image);
+  };
 
-            </div>
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+    lightbox.close();
+  };
+
+  return (
+    <div className="App">
+      <div className="hero">
+        <ul>
+          <li onClick={() => scrollToSection(home)} class="link">Home</li>
+          <li onClick={() => scrollToSection(about)} class="link">About me</li>
+          <li onClick={() => scrollToSection(skills)} class="link">Skills</li>
+          <li onClick={() => scrollToSection(projects)} class="link">Projects</li>
+          <li onClick={() => scrollToSection(contact)} class="link">Contact details</li>
+        </ul>
+      </div>
+
+      <div ref={navBar} className="sticky">
+        <h3 className="heading">My Portfolio</h3>
+      </div>
+
+      <div className="home">
+        <h3 className="heading">Home</h3>
+
+        <table>
+          <tr>
+            <td><h3 class="i1">Hi</h3></td>
+            <td><h3 class="i1">I am Kusumita</h3></td>
+            <td><h3 class="i1">Welcome to my portfolio</h3></td>
+     
+          </tr>
+        </table>
+      </div>
             <div ref={about} class="about">
                 <h3 className="heading">About me</h3>
                 <h4>Highly motivated and detail-oriented B.Tech graduate seeking a challenging position in
@@ -71,6 +88,13 @@ export function Home() {
                 <h4>Contact Number 6301342392</h4>
                 <h4>My GitHub link <a href="https://github.com/KUSUMITA03">It's here</a></h4>
             </div>
-        </div>
-    )
-}
+                         <lightbox isOpen={isLightboxOpen} onClose={closeLightbox}>
+        <img src={image} />
+      </lightbox>
+    </div>
+  );
+};
+
+export default Home;
+
+     
