@@ -1,100 +1,110 @@
+import React from "react";
 import "./style.css";
 import { useRef } from "react";
-import lightbox from "lightbox-react";
+
+const scrollToSection = (elementRef) => {
+  window.scrollTo({
+    top: elementRef.current.offsetTop,
+    behavior: "smooth",
+  });
+};
 
 const Home = () => {
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const navBar = useRef(null);
-
-  // Sticky navigation bar code
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 0) {
-      navBar.current.classList.add("sticky");
-    } else {
-      navBar.current.classList.remove("sticky");
-    }
-  });
-
-  // Lightbox code
-
-  const openLightbox = (image) => {
-    setIsLightboxOpen(true);
-    lightbox.open(image);
-  };
-
-  const closeLightbox = () => {
-    setIsLightboxOpen(false);
-    lightbox.close();
-  };
+  const home = useRef(null);
+  const about = useRef(null);
+  const skills = useRef(null);
+  const projects = useRef(null);
+  const contact = useRef(null);
 
   return (
-    <div className="App">
-      <div className="hero">
+    <div className="portfolio-container">
+      <nav className="hero">
         <ul>
-          <li onClick={() => scrollToSection(home)} class="link">Home</li>
-          <li onClick={() => scrollToSection(about)} class="link">About me</li>
-          <li onClick={() => scrollToSection(skills)} class="link">Skills</li>
-          <li onClick={() => scrollToSection(projects)} class="link">Projects</li>
-          <li onClick={() => scrollToSection(contact)} class="link">Contact details</li>
+          <li onClick={() => scrollToSection(home)} className="nav-link">Home</li>
+          <li onClick={() => scrollToSection(about)} className="nav-link">About</li>
+          <li onClick={() => scrollToSection(skills)} className="nav-link">Skills</li>
+          <li onClick={() => scrollToSection(projects)} className="nav-link">Projects</li>
+          <li onClick={() => scrollToSection(contact)} className="nav-link">Contact</li>
         </ul>
-      </div>
+      </nav>
 
-      <div ref={navBar} className="sticky">
-        <h3 className="heading">My Portfolio</h3>
-      </div>
+      <section ref={home} className="home">
+        <h1 className="main-title">Welcome to My Portfolio</h1>
+        <p className="sub-title">Hi, I'm Kusumita, a passionate developer.</p>
+      </section>
 
-      <div className="home">
-        <h3 className="heading">Home</h3>
+      <section ref={about} className="about">
+        <h2>About Me</h2>
+        <p>
+        Explore my portfolio to discover the journey of a passionate
+         third-year B.Tech student at VIT Chennai, specializing in 
+         Computer Science. With a focus on Information Security
+          and Cybersecurity, I bring a unique blend of academic 
+          prowess and practical experience.<br/><br/>
+        Currently serving as the Vice President of the HR Club, I am dedicated to fostering 
+        collaboration and growth. I am a detail-oriented graduate with a strong coding foundation, 
+        driven by a keen interest in artificial intelligence and machine learning. My adaptability to emerging technologies
+         and collaborative spirit 
+        make me an asset in dynamic team environments.
+        <br/><br/>Browse through my portfolio to delve into my skills, projects,
+        and experiences. For inquiries or opportunities, feel free to reach out. 
+        </p>
+      </section>
 
-        <table>
-          <tr>
-            <td><h3 class="i1">Hi</h3></td>
-            <td><h3 class="i1">I am Kusumita</h3></td>
-            <td><h3 class="i1">Welcome to my portfolio</h3></td>
-     
-          </tr>
-        </table>
-      </div>
-            <div ref={about} class="about">
-                <h3 className="heading">About me</h3>
-                <h4>Highly motivated and detail-oriented B.Tech graduate seeking a challenging position in
-                    the software engineering field. Offering a strong foundation in coding, along with a passion
-                    for artificial intelligence and machine learning. Committed to continuous learning and
-                    professional growth, with a proven ability to adapt to new technologies and work
-                    collaboratively in team environments.
-                </h4>
+      <section ref={skills} className="skills">
+        <h2>My Skills</h2>
+        <ul>
+          <li className="popup-info" onClick={() => alert("MS Office [Power Point, Excel, Word]")}>
+            MS Office [Power Point, Excel, Word]
+          </li>
+          <li className="popup-info" onClick={() => alert("Programming languages: Java")}>
+            Programming languages: Java
+          </li>
+          <li className="popup-info" onClick={() => alert("Web technologies: HTML, CSS, JavaScript, PHP")}>
+            Web technologies: HTML, CSS, JavaScript, PHP
+          </li>
+          <li className="popup-info" onClick={() => alert("Artificial intelligence, machine learning, cloud computing")}>
+            Artificial intelligence, machine learning, cloud computing
+          </li>
+          <li className="popup-info" onClick={() => alert("Database: Oracle")}>
+            Database: Oracle
+          </li>
+          <li className="popup-info" onClick={() => alert("google cyber security professional")}>
+          google cyber security professional
+          </li>
+        </ul>
+      </section>
 
-            </div>
-            <div ref={skills} class="skills">
-                <h3 className="heading">My skills</h3>
-                <h4>➢ MS Office [Power Point, Excel and Word].</h4>
-                <h4>➢ Programming languages: Java.</h4>
-                <h4>➢ Web technologies:Html,CSS,JavaScript,PHP.</h4>
-                <h4>➢ Artificial intelligence and machine learning, cloud computing, web
-                    technologies,softskills.</h4>
-                <h4>➢ Database: Oracle</h4>
-                <h4>➢ Strong mathematical and logical reasoning abilities</h4>
-            </div>
-            <div ref={projects} class="projects">
-                <h3 class="heading">Projects done by me</h3>
-                <h4>➢ Voice control car using Arduino Uno.</h4>
-                <h4>➢ Smart pill box using the .</h4>
-                <h4>➢ Object detection using Arduino.</h4>
-            </div>
-            <div ref={contact} class="contact">
-                <h3 class="heading">Contact details</h3>
-                <h4>Email me at Kusumita032004@gmail.com</h4>
-                <h4>Contact Number 6301342392</h4>
-                <h4>My GitHub link <a href="https://github.com/KUSUMITA03">It's here</a></h4>
-            </div>
-                         <lightbox isOpen={isLightboxOpen} onClose={closeLightbox}>
-        <img src={image} />
-      </lightbox>
+      <section ref={projects} className="projects">
+        <h2>Projects</h2>
+        <ul>
+          <li className="popup-info" onClick={() => alert("Voice control car using Arduino Uno")}>
+            Voice control car using Arduino Uno
+          </li>
+          <li className="popup-info" onClick={() => alert("intrusion detection using snort")}>
+            Intrusion detection using snort
+          </li>
+          <li className="popup-info" onClick={() => alert("Object detection using Arduino")}>
+            Object detection using Arduino
+          </li>
+        </ul>
+      </section>
+
+      <section ref={contact} className="contact">
+        <h2>Contact Details</h2>
+        <p>Email me at harshamuppalla4@gmail.com</p>
+        <p>Contact Number:6303090905</p>
+        <p>
+          My GitHub link <a href="https://github.com/harsha-muppalla">here</a>
+        </p>
+      </section>
+
+      <section className="thanks-section">
+        <p className="thanks-message">Thanks for visiting!</p>
+      </section>
     </div>
   );
 };
 
 export default Home;
-
      
